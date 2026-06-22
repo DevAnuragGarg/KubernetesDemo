@@ -1,0 +1,11 @@
+# This file defines a Kubernetes Namespace called "student-namespace".
+# Namespaces are used to organize and manage resources in a Kubernetes cluster.
+# They provide a way to divide cluster resources between multiple users or teams,
+# allowing for better resource management and access control.
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: student-namespace
+  labels:
+    name: student-namespace
+

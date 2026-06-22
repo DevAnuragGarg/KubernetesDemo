@@ -1,0 +1,16 @@
+# This YAML file defines a PersistentVolumeClaim (PVC) for MySQL in a Kubernetes cluster.
+# The PVC is named "mysql-pvc" and is created in the "student-namespace".
+# It requests 5Gi of storage and allows read-write access for a single node (ReadWriteOnce).
+# This PVC can be used by a MySQL deployment to store its data persistently.
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-pvc
+  namespace: student-namespace
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+

@@ -1,0 +1,56 @@
+# This file defines a Deployment for a MySQL database in Kubernetes.
+# It specifies the use of the MySQL 8.0 image, sets up environment variables
+# for the root password using a Kubernetes Secret, and configures a Persistent
+# Volume Claim for data storage.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+  namespace: student-namespace
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql # newly created pods will have this label
+  template:
+    metadata:
+      labels:
+        app: mysql # which pods belong to me, and both matchLabels and labels must match
+    spec:
+      containers:
+        - name: mysql
+          image: mysql:8.0
+          ports:
+            - containerPort: 3306
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: student-mysql-secret
+                  key: DB_ROOT_PASSWORD
+
+            - name: MYSQL_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: student-config
+                  key: DB_NAME
+
+            - name: MYSQL_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: student-config
+                  key: DB_USERNAME
+
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: student-mysql-secret
+                  key: DB_PASSWORD
+          volumeMounts:
+            - name: mysql-storage
+              mountPath: /var/lib/mysql
+      volumes:
+        - name: mysql-storage
+          persistentVolumeClaim:
+            claimName: mysql-pvc
+

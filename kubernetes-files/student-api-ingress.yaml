@@ -1,0 +1,20 @@
+# This YAML file defines an Ingress resource for the student API service
+# in a Kubernetes cluster. The Ingress is configured to route HTTP traffic
+# to the student API service based on the specified path.
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: student-api-ingress
+  namespace: student-namespace
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /
+            pathType: Prefix  # this means /, student, student/1 anything will be routed to the student-api-service
+            backend:
+              service:
+                name: student-api-service
+                port:
+                  number: 80
+

@@ -1,0 +1,17 @@
+# This file defines a Kubernetes Service for the MySQL deployment.
+# It exposes the MySQL database on port 3306 within the cluster,
+# allowing other pods to communicate with it using the service name 'mysql-service'.
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-service
+  namespace: student-namespace
+spec:
+  type: ClusterIP
+  selector:
+    app: mysql
+  ports:
+    - protocol: TCP
+      port: 3306
+      targetPort: 3306
+
