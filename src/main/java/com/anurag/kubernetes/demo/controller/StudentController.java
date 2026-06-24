@@ -18,7 +18,7 @@ public class StudentController {
 
     @GetMapping("/")
     public String welcome() {
-        return "Welcome to the Student Management System!";
+        return "Welcome to the Student Management System!: v6";
     }
 
     @GetMapping("/students")

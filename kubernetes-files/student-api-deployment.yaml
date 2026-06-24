@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: student-api
-          image: devanurag/student-info:v4
+          image: devanurag/student-info:v6
           ports:
             - containerPort: 8080
           env:
